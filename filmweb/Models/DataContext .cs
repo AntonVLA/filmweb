@@ -17,6 +17,12 @@ namespace filmweb.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
+        public DataContext(DbContextOptions<DataContext> options)
+            : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
 
         public DataContext()
         {
@@ -82,7 +88,7 @@ namespace filmweb.Models
             modelBuilder.Entity<Genre>().HasData(
                 new Genre[]
                 {
-                    new Genre {Id = 0, Name = "Боевик"},
+                    new Genre {Id = 3, Name = "Боевик"},
                     new Genre {Id = 1, Name = "Фентези"},
                     new Genre {Id = 2, Name = "Детектив"}
                 });
@@ -90,7 +96,7 @@ namespace filmweb.Models
             modelBuilder.Entity<Actor>().HasData(
                 new Actor[]
                 {
-                    new Actor {Id = 0, Name = "Леонардо Дикаприо"},
+                    new Actor {Id = 3, Name = "Леонардо Дикаприо"},
                     new Actor {Id = 1, Name = "Джони Деп"},
                     new Actor {Id = 2, Name = "Том Круз"}
                 });
@@ -98,7 +104,7 @@ namespace filmweb.Models
             modelBuilder.Entity<Producer>().HasData(
                 new Producer[]
                 {
-                    new Producer {Id = 0, Name = "Кристофер Нолан"},
+                    new Producer {Id = 3, Name = "Кристофер Нолан"},
                     new Producer {Id = 1, Name = "Квентин Тарантино"},
                     new Producer {Id = 2, Name = "Стэнли Кубрик"}
                 });
@@ -106,15 +112,7 @@ namespace filmweb.Models
             modelBuilder.Entity<Film>().HasData(
                 new Film[]
                 {
-                    new Film {Id = 0, Name = "Тёмный рыцарь"},
-                    new Film {Id = 1, Name = "Однажды в Голивуде"},
-                    new Film {Id = 2, Name = "Космическая одисея"}
-                });
-
-            modelBuilder.Entity<Film>().HasData(
-                new Film[]
-                {
-                    new Film {Id = 0, Name = "Тёмный рыцарь"},
+                    new Film {Id = 3, Name = "Тёмный рыцарь"},
                     new Film {Id = 1, Name = "Однажды в Голивуде"},
                     new Film {Id = 2, Name = "Космическая одисея"}
                 });
@@ -122,19 +120,19 @@ namespace filmweb.Models
             modelBuilder.Entity<User>().HasData(
                 new User[]
                 {
-                    new User {Id = 0, Login = "test"}
+                    new User {Id = 3, Login = "test"}
                 });
 
             modelBuilder.Entity<Comment>().HasData(
                 new Comment[]
                 {
-                    new Comment {Id = 0, FilmId=0, UserId=0, Text = "классный фильм!"},
+                    new Comment {Id = 3, FilmId=3, UserId=3, Text = "классный фильм!"},
                 });
 
             modelBuilder.Entity<FilmActor>().HasData(
                 new FilmActor[]
                 {
-                    new FilmActor {FilmId = 0, ActorId = 0},
+                    new FilmActor {FilmId = 3, ActorId = 3},
                     new FilmActor {FilmId = 1, ActorId = 2},
                     new FilmActor {FilmId = 2, ActorId = 1}
                 });
@@ -142,15 +140,15 @@ namespace filmweb.Models
             modelBuilder.Entity<FilmGenre>().HasData(
                 new FilmGenre[]
                 {
-                    new FilmGenre {FilmId = 0, GenreId = 1},
+                    new FilmGenre {FilmId = 3, GenreId = 1},
                     new FilmGenre {FilmId = 1, GenreId = 2},
-                    new FilmGenre {FilmId = 2, GenreId = 0}
+                    new FilmGenre {FilmId = 2, GenreId = 3}
                 });
 
             modelBuilder.Entity<FilmProducer>().HasData(
                 new FilmProducer[]
                 {
-                    new FilmProducer {FilmId = 0, ProducerId = 0},
+                    new FilmProducer {FilmId = 3, ProducerId = 3},
                     new FilmProducer {FilmId = 1, ProducerId = 1},
                     new FilmProducer {FilmId = 2, ProducerId = 2}
                 });
