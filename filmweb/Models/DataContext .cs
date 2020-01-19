@@ -14,6 +14,9 @@ namespace filmweb.Models
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Producer> Producers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+
 
         public DataContext()
         {
@@ -24,6 +27,7 @@ namespace filmweb.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region manyToMany
             // Связь многие к многим FILM-ACTOR
             modelBuilder.Entity<FilmActor>()
                 .HasKey(t => new { t.ActorId, t.FilmId });
@@ -71,7 +75,91 @@ namespace filmweb.Models
                 .HasOne(sc => sc.User)
                 .WithMany(c => c.FavoriteFilms)
                 .HasForeignKey(sc => sc.UserId);
+            #endregion
+
+            #region initdata
+
+            modelBuilder.Entity<Genre>().HasData(
+                new Genre[]
+                {
+                    new Genre {Id = 0, Name = "Боевик"},
+                    new Genre {Id = 1, Name = "Фентези"},
+                    new Genre {Id = 2, Name = "Детектив"}
+                });
+
+            modelBuilder.Entity<Actor>().HasData(
+                new Actor[]
+                {
+                    new Actor {Id = 0, Name = "Леонардо Дикаприо"},
+                    new Actor {Id = 1, Name = "Джони Деп"},
+                    new Actor {Id = 2, Name = "Том Круз"}
+                });
+
+            modelBuilder.Entity<Producer>().HasData(
+                new Producer[]
+                {
+                    new Producer {Id = 0, Name = "Кристофер Нолан"},
+                    new Producer {Id = 1, Name = "Квентин Тарантино"},
+                    new Producer {Id = 2, Name = "Стэнли Кубрик"}
+                });
+
+            modelBuilder.Entity<Film>().HasData(
+                new Film[]
+                {
+                    new Film {Id = 0, Name = "Тёмный рыцарь"},
+                    new Film {Id = 1, Name = "Однажды в Голивуде"},
+                    new Film {Id = 2, Name = "Космическая одисея"}
+                });
+
+            modelBuilder.Entity<Film>().HasData(
+                new Film[]
+                {
+                    new Film {Id = 0, Name = "Тёмный рыцарь"},
+                    new Film {Id = 1, Name = "Однажды в Голивуде"},
+                    new Film {Id = 2, Name = "Космическая одисея"}
+                });
+
+            modelBuilder.Entity<User>().HasData(
+                new User[]
+                {
+                    new User {Id = 0, Login = "test"}
+                });
+
+            modelBuilder.Entity<Comment>().HasData(
+                new Comment[]
+                {
+                    new Comment {Id = 0, FilmId=0, UserId=0, Text = "классный фильм!"},
+                });
+
+            modelBuilder.Entity<FilmActor>().HasData(
+                new FilmActor[]
+                {
+                    new FilmActor {FilmId = 0, ActorId = 0},
+                    new FilmActor {FilmId = 1, ActorId = 2},
+                    new FilmActor {FilmId = 2, ActorId = 1}
+                });
+
+            modelBuilder.Entity<FilmGenre>().HasData(
+                new FilmGenre[]
+                {
+                    new FilmGenre {FilmId = 0, GenreId = 1},
+                    new FilmGenre {FilmId = 1, GenreId = 2},
+                    new FilmGenre {FilmId = 2, GenreId = 0}
+                });
+
+            modelBuilder.Entity<FilmProducer>().HasData(
+                new FilmProducer[]
+                {
+                    new FilmProducer {FilmId = 0, ProducerId = 0},
+                    new FilmProducer {FilmId = 1, ProducerId = 1},
+                    new FilmProducer {FilmId = 2, ProducerId = 2}
+                });
+
+
+            #endregion
         }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
