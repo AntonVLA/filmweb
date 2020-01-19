@@ -9,7 +9,7 @@ using filmweb.Models;
 namespace filmweb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200117125515_init")]
+    [Migration("20200119000156_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,12 +35,55 @@ namespace filmweb.Migrations
                     b.ToTable("Actors");
                 });
 
+            modelBuilder.Entity("filmweb.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FilmId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("filmweb.Models.FavoriteFilms", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FilmId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "FilmId");
+
+                    b.HasIndex("FilmId");
+
+                    b.ToTable("FavoriteFilms");
+                });
+
             modelBuilder.Entity("filmweb.Models.Film", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -120,6 +163,51 @@ namespace filmweb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Producers");
+                });
+
+            modelBuilder.Entity("filmweb.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Login")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("User");
+                });
+
+            modelBuilder.Entity("filmweb.Models.Comment", b =>
+                {
+                    b.HasOne("filmweb.Models.Film", "Film")
+                        .WithMany()
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("filmweb.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("filmweb.Models.FavoriteFilms", b =>
+                {
+                    b.HasOne("filmweb.Models.Film", "Film")
+                        .WithMany("UserFav")
+                        .HasForeignKey("FilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("filmweb.Models.User", "User")
+                        .WithMany("FavoriteFilms")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("filmweb.Models.FilmActor", b =>

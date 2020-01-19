@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace filmweb.Models
 {
-    public class Film
+    public class Film : FilmProperty
     {
-        public int Id { get; set; }
-
         public List<FilmGenre> Genres { get; set; }
 
         public List<FilmActor> Actors { get; set; }
