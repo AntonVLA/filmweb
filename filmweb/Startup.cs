@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using filmweb.Models;
+using filmweb.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace filmweb
@@ -29,6 +30,8 @@ namespace filmweb
             services.AddControllersWithViews();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(connection));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
