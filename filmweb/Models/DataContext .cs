@@ -20,7 +20,7 @@ namespace filmweb.Models
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
+
         }
 
 
@@ -161,7 +161,8 @@ namespace filmweb.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=filmwebdb;User Id=sa;Password=reallyStrongPwd123; Integrated Security=False");
+            //optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=filmwebdb;User Id=sa;Password=reallyStrongPwd123; Integrated Security=False");
+            optionsBuilder.UseSqlServer(@"Data Source=.\;Database=filmvebdb;Integrated Security=True;");
         }
     }
 }

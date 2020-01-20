@@ -12,10 +12,14 @@ namespace filmweb.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize]
+        //[Authorize]
+        //public IActionResult Index()
+        //{
+        //    return Content(User.Identity.Name);
+        //}
         public IActionResult Index()
         {
-            return Content(User.Identity.Name);
+            return View();
         }
 
         public IActionResult Privacy()
