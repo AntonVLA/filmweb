@@ -1,8 +1,32 @@
-﻿@{
+﻿@model filmweb.ViewModels.HomeModel
+@{
     ViewData["Title"] = "Home Page";
 }
+    <div class="text-center">
+        <h1 class="display-4">Фильмы</h1>
+        <table class="table">
+            <thead class="thead-dark table-hover">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название</th>
+                    <th scope="col">Жанр</th>
+                    <th scope="col">Режиссёр</th>
+                    <th scope="col">Актёры</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Film film in Model.FilmsList)
+                {
+                    <tr>
+                        <th scope="row">@film.Id</th>
+                        <td>@film.Name</td>
+                        <td>@foreach (var genre in film.Genres) { @genre.Genre.Name; }</td>
+                        <td>@film.Producers</td>
+                        <td>@film.Actors</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    </div>
+   

@@ -6,20 +6,26 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using filmweb.Models;
+using filmweb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace filmweb.Controllers
 {
     public class HomeController : Controller
     {
-        //[Authorize]
-        //public IActionResult Index()
-        //{
-        //    return Content(User.Identity.Name);
-        //}
-        public IActionResult Index()
+        private readonly DataContext db;
+        public HomeController(DataContext context)
         {
-            return View();
+            db = context;
+        }
+
+        public IActionResult Index(int page)
+        {
+            HomeModel ivm = new HomeModel { FilmsList = from film in db.Films.Skip(page * 3).Take(3) 
+                                                         from genre in db.Genres 
+                                                         select film
+            };
+            return View(ivm);
         }
 
         public IActionResult Privacy()

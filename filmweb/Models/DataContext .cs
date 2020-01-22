@@ -20,7 +20,7 @@ namespace filmweb.Models
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
-
+            
         }
 
 
