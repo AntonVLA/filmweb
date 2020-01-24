@@ -9,8 +9,8 @@ using filmweb.Models;
 namespace filmweb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200119151340_init2")]
-    partial class init2
+    [Migration("20200123064846_m1")]
+    partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,15 +75,6 @@ namespace filmweb.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            FilmId = 3,
-                            Text = "классный фильм!",
-                            UserId = 3
-                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.FavoriteFilms", b =>
@@ -312,13 +303,6 @@ namespace filmweb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            Login = "test"
-                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.Comment", b =>

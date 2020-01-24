@@ -15,6 +15,14 @@ namespace filmweb.Models
         public IEnumerable<FilmProducer> Producers { get; set; }
 
         public IEnumerable<FavoriteFilms> UserFav { get; set; }
+
+        public Film()
+        {
+            Genres = new List<FilmGenre>();
+            Actors = new List<FilmActor>();
+            Producers = new List<FilmProducer>();
+            UserFav = new List<FavoriteFilms>();
+        }
     }
 
     public abstract class FilmProperty
@@ -27,16 +35,28 @@ namespace filmweb.Models
     public class Producer : FilmProperty
     {
         public IEnumerable<FilmProducer> Films { get; set; }
+        public Producer()
+        {
+            Films = new List<FilmProducer>();
+        }
     }
 
     public class Genre : FilmProperty
     {
         public IEnumerable<FilmGenre> Films { get; set; }
+        public Genre()
+        {
+            Films = new List<FilmGenre>();
+        }
     }
 
     public class Actor : FilmProperty
     {
         public IEnumerable<FilmActor> Films { get; set; }
+        public Actor() 
+        {
+            Films = new List<FilmActor>();
+        } 
     }
 
     #region ManyToMany

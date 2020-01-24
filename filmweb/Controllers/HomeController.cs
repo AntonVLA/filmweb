@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using System.Data.Entity;
 
 namespace filmweb.Controllers
 {
@@ -21,11 +22,9 @@ namespace filmweb.Controllers
 
         public IActionResult Index(int page)
         {
-            HomeModel ivm = new HomeModel { FilmsList = from film in db.Films.Skip(page * 3).Take(3) 
-                                                         from genre in db.Genres 
-                                                         select film
-            };
-            return View(ivm);
+            var films = db.Films.Skip(page * 3).Take(3);
+            var _ = db.Users.Where(u => u.Id == 1).SelectMany(u => u.FavoriteFilms);
+            return View();
         }
 
         public IActionResult Privacy()
