@@ -161,8 +161,8 @@ namespace filmweb.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=filmwebdb;User Id=sa;Password=reallyStrongPwd123; Integrated Security=False");
-            optionsBuilder.UseSqlServer(@"Data Source=.\;Database=filmvebdb;Integrated Security=True;");
+            optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=filmwebdb;User Id=sa;Password=reallyStrongPwd123; Integrated Security=False");
+            //optionsBuilder.UseSqlServer(@"Data Source=.\;Database=filmvebdb;Integrated Security=True;");
         }
     }
 }
