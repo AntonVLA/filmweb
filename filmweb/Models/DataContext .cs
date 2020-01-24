@@ -20,7 +20,7 @@ namespace filmweb.Models
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
-
+            
         }
 
 
@@ -115,18 +115,6 @@ namespace filmweb.Models
                     new Film {Id = 3, Name = "Тёмный рыцарь"},
                     new Film {Id = 1, Name = "Однажды в Голивуде"},
                     new Film {Id = 2, Name = "Космическая одисея"}
-                });
-
-            modelBuilder.Entity<User>().HasData(
-                new User[]
-                {
-                    new User {Id = 3, Login = "test"}
-                });
-
-            modelBuilder.Entity<Comment>().HasData(
-                new Comment[]
-                {
-                    new Comment {Id = 3, FilmId=3, UserId=3, Text = "классный фильм!"},
                 });
 
             modelBuilder.Entity<FilmActor>().HasData(
