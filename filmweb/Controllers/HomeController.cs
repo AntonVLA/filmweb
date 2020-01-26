@@ -9,6 +9,7 @@ using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Data.Entity;
+using filmweb.Data;
 
 namespace filmweb.Controllers
 {
@@ -20,11 +21,12 @@ namespace filmweb.Controllers
             db = context;
         }
 
-        public IActionResult Index(int page)
+        public IActionResult Index(int page, HomeModel model)
         {
-            var films = db.Films.Skip(page * 3).Take(3);
-            var _ = db.Users.Where(u => u.Id == 1).SelectMany(u => u.FavoriteFilms);
-            return View();
+            var films = db.Films.Include(f => f.Actors).Include(f => f.Genres).Include(f => f.Producers).ToList();
+            model.FilmsList = films;
+
+            return View(model);
         }
 
         public IActionResult Privacy()

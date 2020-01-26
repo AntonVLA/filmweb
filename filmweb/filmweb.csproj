@@ -19,8 +19,13 @@
 
   <ItemGroup>
     <Folder Include="Views\Account\" />
+    <Folder Include="Data\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Account\Account.cshtml" />
+    <Content Remove="appsettings.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\Repositorys\SqlRepository.cs" />
   </ItemGroup>
 </Project>

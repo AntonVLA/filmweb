@@ -7,6 +7,7 @@ using filmweb.ViewModels; // пространство имен моделей Re
 using filmweb.Models; // пространство имен UserContext и класса User
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using filmweb.Data;
 
 namespace filmweb.Controllers
 {

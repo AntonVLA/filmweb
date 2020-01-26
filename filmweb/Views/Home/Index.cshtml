@@ -20,7 +20,7 @@
                     <tr>
                         <th scope="row">@film.Id</th>
                         <td>@film.Name</td>
-                        <td>@foreach (var genre in film.Genres) { @genre.Genre.Name; }</td>
+                        <td>@film.Genres</td>
                         <td>@film.Producers</td>
                         <td>@film.Actors</td>
                     </tr>

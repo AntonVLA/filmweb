@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using filmweb.Data;
 
 namespace filmweb
 {

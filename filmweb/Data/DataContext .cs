@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using filmweb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace filmweb.Models
+namespace filmweb.Data
 {
     public class DataContext : DbContext
     {
@@ -20,7 +21,7 @@ namespace filmweb.Models
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
         {
-            
+            Database.EnsureCreated();
         }
 
 
