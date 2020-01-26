@@ -4,14 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using filmweb.Models;
 using filmweb.Data;
 
 namespace filmweb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200123064846_m1")]
-    partial class m1
+    [Migration("20200126155601_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -23,7 +23,7 @@ namespace filmweb.Controllers
 
         public IActionResult Index(int page, HomeModel model)
         {
-            var films = db.Films.Include(f => f.Actors).Include(f => f.Genres).Include(f => f.Producers).ToList();
+            var films = db.Films.Include(f => f.Actors.Select(a=>a.Actor)).Include(f => f.Genres.Select(g => g.Genre)).Include(f => f.Producers.Select(p=>p.Producer)).ToList();
             model.FilmsList = films;
 
             return View(model);
