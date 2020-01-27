@@ -14,6 +14,8 @@ namespace filmweb.Models
 
         public List<FilmProducer> Producers { get; set; }
 
+        public List<Comment> Comments { get; set; }
+
         public List<FavoriteFilms> UserFav { get; set; }
 
         public IEnumerable<Genre> getFilmGenrs()

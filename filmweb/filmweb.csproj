@@ -15,13 +15,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\Account\" />
     <Folder Include="Data\Models\" />
     <Folder Include="Migrations\" />
-    <Folder Include="ClientApp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Account\Account.cshtml" />
@@ -29,11 +30,5 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Repositorys\SqlRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="ClientApp\app.component" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\app.component.ts" />
   </ItemGroup>
 </Project>

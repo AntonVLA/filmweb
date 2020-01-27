@@ -21,7 +21,7 @@ namespace filmweb.Controllers
             db = context;
         }
 
-        public IActionResult Index(int page, HomeModel model)
+        public IActionResult Index(HomeModel model)
         {
             var films = db.Films
                     .Include(f => f.Actors)
@@ -31,7 +31,7 @@ namespace filmweb.Controllers
                     .Include(f => f.Producers)
                         .ThenInclude(fp=>fp.Producer)
                 .ToList();
-            model.FilmsList = films;
+            model = new HomeModel(films);
 
             return View(model);
         }

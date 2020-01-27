@@ -213,7 +213,7 @@ angular.module("solo.table", [])
 	 * [{"id":0,"prefix":"Miss","name":"Alvah Gleason","address":"58707 Ophelia Field\nEast Lorena, LA 89754-9301"}]
 	 * </div>
 	 */
-	.directive("soloTableData", function(){
+    .directive("soloTableData", function () {
 		return {
 			require: "?ngModel",
 			restrict: "A",
