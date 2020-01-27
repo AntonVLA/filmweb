@@ -2,16 +2,52 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-    <div class="text-center">
-        <h1 class="display-4">Фильмы</h1>
-        <table class="table">
-            <thead class="thead-dark table-hover">
+<script rel="stylesheet" src="~/js/angular-1.1.5.js"></script>
+<script rel="stylesheet" src="~/js/app.factory.js"></script>
+<script rel="stylesheet" src="~/js/solo.table.js"></script>
+<style type="text/css">
+    .solo-table-sort-asc > .solo-column-arrow {
+        position: relative;
+        top: 10px;
+        margin-left: 5px;
+        border-color: black transparent;
+        border-style: solid;
+        border-width: 5px 5px 0px 5px;
+        height: 0px;
+        width: 0px;
+    }
+
+    .solo-table-sort-desc > .solo-column-arrow {
+        position: relative;
+        top: -10px;
+        margin-left: 5px;
+        border-color: black transparent;
+        border-style: solid;
+        border-width: 0px 5px 5px 5px;
+        height: 0px;
+        width: 0px;
+    }
+
+    .solo-table-column-cursor {
+        cursor: pointer;
+    }
+</style>
+
+
+<div class="text-center" ng-cloak>
+    <h1 class="display-4">Фильмы</h1>
+    <solo-table make-sortable ="3">
+        <div solo-table-data>
+            [@foreach (Film film in Model.FilmsList) { }]
+        </div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark table-hover text-center">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">Жанр</th>
-                    <th scope="col">Режиссёр</th>
-                    <th scope="col">Актёры</th>
+                    <th scope="col" class="text-center" sort-by="name">Название</th>
+                    <th scope="col" class="text-center" sort-by="genre">Жанр</th>
+                    <th scope="col" class="text-center" sort-by="produser">Режиссёр</th>
+                    <th scope="col" class="text-center" sort-by="Actors">Актёры</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,13 +56,22 @@
                     <tr>
                         <th scope="row">@film.Id</th>
                         <td>@film.Name</td>
-                        <td>@film.Genres</td>
-                        <td>@film.Producers</td>
-                        <td>@film.Actors</td>
+                        <td>
+                            @foreach (Genre genre in film.getFilmGenrs())
+                            {@genre.Name}
+                        </td>
+                        <td>
+                            @foreach (Producer producer in film.getFilmProducers())
+                            {@producer.Name}
+                        </td>
+                        <td>
+                            @foreach (Actor actor in film.getFilmActors())
+                            {@actor.Name}
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
+    </solo-table>
 
-    </div>
-   
+</div>

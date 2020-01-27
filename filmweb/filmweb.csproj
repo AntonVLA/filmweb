@@ -5,22 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Ninject" Version="3.3.4" />
-    <PackageReference Include="octicons" Version="3.5.0" />
-    <PackageReference Include="Octicons.TagHelper" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Views\Account\" />
     <Folder Include="Data\Models\" />
     <Folder Include="Migrations\" />
+    <Folder Include="ClientApp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Account\Account.cshtml" />
@@ -28,5 +29,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\Repositorys\SqlRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ClientApp\app.component" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app.component.ts" />
   </ItemGroup>
 </Project>

@@ -17,6 +17,9 @@ namespace filmweb.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<FilmActor> FilmActors { get; set; }
+        public DbSet<FilmGenre> FilmGenres { get; set; }
+        public DbSet<FilmProducer> FilmProducers { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)

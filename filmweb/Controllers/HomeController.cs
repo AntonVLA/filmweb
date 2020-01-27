@@ -8,8 +8,8 @@ using Microsoft.Extensions.Logging;
 using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using System.Data.Entity;
 using filmweb.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace filmweb.Controllers
 {
@@ -23,7 +23,14 @@ namespace filmweb.Controllers
 
         public IActionResult Index(int page, HomeModel model)
         {
-            var films = db.Films.Include(f => f.Actors.Select(a=>a.Actor)).Include(f => f.Genres.Select(g => g.Genre)).Include(f => f.Producers.Select(p=>p.Producer)).ToList();
+            var films = db.Films
+                    .Include(f => f.Actors)
+                        .ThenInclude(fa=>fa.Actor)
+                    .Include(f => f.Genres)
+                        .ThenInclude(fg=>fg.Genre)
+                    .Include(f => f.Producers)
+                        .ThenInclude(fp=>fp.Producer)
+                .ToList();
             model.FilmsList = films;
 
             return View(model);

@@ -13,6 +13,8 @@ using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using filmweb.Data;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.SpaServices.Webpack;
 
 namespace filmweb
 {
