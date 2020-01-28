@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace filmweb.ViewModels
@@ -20,11 +19,6 @@ namespace filmweb.ViewModels
             }
         }
 
-        public string tojsonstring() 
-        {
-            return JsonSerializer.Serialize(FilmsList.Select(f=>f.Genres.Select(g=>g.)));
-
-        }
         public HomeModel()
         {
             

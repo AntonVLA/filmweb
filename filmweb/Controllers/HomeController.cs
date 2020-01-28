@@ -10,6 +10,7 @@ using filmweb.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using filmweb.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace filmweb.Controllers
 {
@@ -23,21 +24,7 @@ namespace filmweb.Controllers
 
         public IActionResult Index(HomeModel model)
         {
-            var films = db.Films
-                    .Include(f => f.Actors)
-                        .ThenInclude(fa=>fa.Actor)
-                    .Include(f => f.Genres)
-                        .ThenInclude(fg=>fg.Genre)
-                    .Include(f => f.Producers)
-                        .ThenInclude(fp=>fp.Producer)
-                .ToList();
-            model = new HomeModel(films);
 
-            return View(model);
-        }
-
-        public IActionResult Privacy()
-        {
             return View();
         }
 

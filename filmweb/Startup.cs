@@ -13,6 +13,7 @@ using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using filmweb.Data;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace filmweb
 {
@@ -29,6 +30,8 @@ namespace filmweb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddMvcCore();
+            services.AddSwaggerGen();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
@@ -61,6 +64,12 @@ namespace filmweb
 
             app.UseAuthentication();    // аутентификация
             app.UseAuthorization();     // авторизация
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {

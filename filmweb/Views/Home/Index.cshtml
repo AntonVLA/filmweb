@@ -3,8 +3,6 @@
     ViewData["Title"] = "Home Page";
 }
 <script rel="stylesheet" src="~/js/angular-1.1.5.js"></script>
-<script rel="stylesheet" src="~/js/app.factory.js"></script>
-<script rel="stylesheet" src="~/js/solo.table.js"></script>
 <style type="text/css">
     .solo-table-sort-asc > .solo-column-arrow {
         position: relative;
@@ -34,10 +32,9 @@
 </style>
 
 
-<div class="text-center" ng-cloak>
+<div class="text-center">
     <h1 class="display-4">Фильмы</h1>
-    <solo-table make-sortable ="3">
-        <div>@Model.FilmsList</div>
+    <div ng-app="tableapp" ng-controller="filmsCtrl">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark table-hover text-center">
                 <tr>
@@ -49,28 +46,27 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var film in Model.FilmsList)
-                {
-                    <tr onclick="window.location.href='/film/@film'; return false">
-
-                        <th scope="row"></th>
-                        <td>@film.Name</td>
-                        <td>
-                            @foreach (Genre genre in film.)
-                            {@genre.Name}
-                        </td>
-                        <td>
-                            @foreach (Producer producer in film.getFilmProducers())
-                            {@producer.Name}
-                        </td>
-                        <td>
-                            @foreach (Actor actor in film.getFilmActors())
-                            {@actor.Name}
-                        </td>
-                    </tr>
-                }
+                <tr ng-repeat="item in products">
+                    <td>{{ item.Id }}</td>
+                    <td>{{ item.Name }} </td>
+                    <td>{{ item.Genre }} </td>
+                    <td>{{ item.Produser }} </td>
+                    <td>{{ item.Actor }} </td>
+                </tr>
             </tbody>
         </table>
-    </solo-table>
+    </div>
 
 </div>
+<script>
+    var app = angular.module('tableapp', []);
+
+    app.controller('filmsCtrl', ['$scope', '$http', function ($scope, $http) {
+        $scope.products = [];
+        $http.get('/api/GetAllFilms').then(function (response) {
+            $scope.products = response.data;
+        }, function (errResponse) {
+            alert(errResponse);
+        });
+    }]);
+</script>
