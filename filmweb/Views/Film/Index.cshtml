@@ -33,6 +33,18 @@
         </div>
     </div>
 </div>
+<script>
+    var app = angular.module('tableapp', ['smart-table']);
+
+    app.controller('filmsCtrl', ['$scope', '$http', '$filter', function (scope, http, filter) {
+
+        http.get('/api/ApiFilm').then(function (response) {
+            scope.films = response.data;
+        }, function (errResponse) {
+            alert(errResponse);
+        });
+    }]);
+</script>
 
 
 

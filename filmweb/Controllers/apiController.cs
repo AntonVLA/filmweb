@@ -23,16 +23,28 @@ namespace filmweb.Controllers
         [HttpGet]
         public JsonResult GetAllFilms()
         {
-            var films = db.Films
-                    .Include(f => f.Actors)
-                        .ThenInclude(fa => fa.Actor)
-                    .Include(f => f.Genres)
-                        .ThenInclude(fg => fg.Genre)
-                    .Include(f => f.Producers)
-                        .ThenInclude(fp => fp.Producer)
-                .ToList();
+            var films = db.Films;
             var model = new HomeModel(films);
             return  Json(model.FilmsList);
+        }
+        [HttpGet]
+        public JsonResult GetAllFilms(string sortBy="id", bool asc=true)
+        {
+            switch(sortBy)
+            {
+                case "id":
+                    if(asc)
+                        return Json(new HomeModel(db.Films).FilmsList.OrderBy(l => l.Id));
+                    else
+                        return Json(new HomeModel(db.Films).FilmsList.OrderByDescending(l => l.Id));
+
+                case "name":
+                    if(asc)
+                        return Json(new HomeModel(db.Films).FilmsList.OrderBy(l => l.Name));
+                    else
+                        return Json(new HomeModel(db.Films).FilmsList.OrderByDescending(l => l.Name));
+            }
+            return Json(new HomeModel(db.Films).FilmsList);
         }
     }
 }
