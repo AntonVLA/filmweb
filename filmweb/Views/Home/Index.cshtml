@@ -18,7 +18,7 @@
 <div class="text-center">
     <h1 class="display-4">Фильмы</h1>
     <div ng-app="tableapp" ng-controller="filmsCtrl">
-        <table st-table="films" class="table table-striped table-bordered">
+        <table st-table="films" class="table table-striped table-bordered" >
             <thead class="thead-dark table-hover text-center">
                 <tr>
                     <th st-sort="id">#</th>
@@ -29,7 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in films" class="ng-scope">
+                <tr  ng-repeat="item in films" class="ng-scope" onclick="window.location.href='/film/{{item.id}}'; return false">
                     <td>{{ item.id }}</td>
                     <td>{{ item.name }} </td>
                     <td ng-repeat="genre in item.genres">{{ genre }} </td>
@@ -42,10 +42,10 @@
 
 </div>
 <script>
-    var app = angular.module('tableapp', []);
+    var app = angular.module('tableapp', ['smart-table']);
 
-    app.controller('filmsCtrl', ['$scope', '$http', function (scope, http) {
-        scope.films = [];
+    app.controller('filmsCtrl', ['$scope', '$http', '$filter', function (scope, http, filter) {
+
         http.get('/api/ApiFilm').then(function (response) {
             scope.films = response.data;
         }, function (errResponse) {

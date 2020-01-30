@@ -1,0 +1,38 @@
+﻿@model filmweb.ViewModels.FilmViewModel
+@{
+    ViewData["Title"] = "FilmView";
+}
+
+<h1>@Model.Id, @Model.Name</h1>
+<p>Жанры: @Model.Genres.ToString()</p>
+<p>Режиссёры: @Model.Produsers.ToString()</p>
+<p>Актёры: @Model.Actors.ToString()</p>
+@if (User.Identity.IsAuthenticated)
+{
+<div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text">With textarea</span>
+        </div>
+        <textarea class="form-control" aria-label="With textarea"></textarea>
+    </div>
+    <button type="button" class="btn btn-primary">Primary</button>
+</div>
+}
+<h3>Комментарии:</h3>
+<div>
+    <div class="card">
+        <div class="card-header">
+            Quote
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+</div>
+
+
+

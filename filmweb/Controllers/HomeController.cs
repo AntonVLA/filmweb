@@ -22,7 +22,7 @@ namespace filmweb.Controllers
             db = context;
         }
 
-        public IActionResult Index(HomeModel model)
+        public IActionResult Index()
         {
 
             return View();

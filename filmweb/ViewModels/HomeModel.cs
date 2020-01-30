@@ -18,10 +18,9 @@ namespace filmweb.ViewModels
                 this.FilmsList.Add(new FilmViewModel(film));
             }
         }
+        public HomeModel() 
+        { 
 
-        public HomeModel()
-        {
-            
         }
     }
     public class FilmViewModel
@@ -31,6 +30,7 @@ namespace filmweb.ViewModels
         public List<string> Genres { get; set; }
         public List<string> Actors { get; set; }
         public List<string> Produsers { get; set; }
+        public List<Comment> Comments { get; set; }
 
         public FilmViewModel(Film film)
         {
@@ -39,6 +39,8 @@ namespace filmweb.ViewModels
             Genres = film.getFilmGenrs().Select(g=>g.Name).ToList();
             Actors = film.getFilmActors().Select(a => a.Name).ToList();
             Produsers = film.getFilmProducers().Select(p => p.Name).ToList();
+            Comments = film.Comments.ToList();
         }
+        public FilmViewModel() { }
     }
 }

@@ -9,25 +9,19 @@ namespace filmweb.Models
     public class Film : FilmProperty
     {
         public List<FilmGenre> Genres { get; set; }
-
         public List<FilmActor> Actors { get; set; }
-
         public List<FilmProducer> Producers { get; set; }
-
         public List<Comment> Comments { get; set; }
-
         public List<FavoriteFilms> UserFav { get; set; }
 
         public IEnumerable<Genre> getFilmGenrs()
         {
             return this.Genres.Select(g=>g.Genre);
         }
-
         public IEnumerable<Actor> getFilmActors()
         {
             return this.Actors.Select(a => a.Actor);
         }
-
         public IEnumerable<Producer> getFilmProducers()
         {
             return this.Producers.Select(p => p.Producer);
@@ -39,6 +33,7 @@ namespace filmweb.Models
             Actors = new List<FilmActor>();
             Producers = new List<FilmProducer>();
             UserFav = new List<FavoriteFilms>();
+            Comments = new List<Comment>();
         }
     }
 
