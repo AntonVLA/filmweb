@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Http.Results;
 using filmweb.Data;
 using filmweb.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -13,16 +12,16 @@ namespace filmweb.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class apiController : ControllerBase
+    public class ApiFilmController : Controller
     {
         private readonly DataContext db;
-        public apiController(DataContext context)
+        public ApiFilmController(DataContext context)
         {
             db = context;
         }
 
-        [HttpGet("api/AllFilms")]
-        public ActionResult GetAllFilms()
+        [HttpGet]
+        public JsonResult GetAllFilms()
         {
             var films = db.Films
                     .Include(f => f.Actors)
@@ -33,7 +32,7 @@ namespace filmweb.Controllers
                         .ThenInclude(fp => fp.Producer)
                 .ToList();
             var model = new HomeModel(films);
-            return  model.FilmsList;
+            return  Json(model.FilmsList);
         }
     }
 }

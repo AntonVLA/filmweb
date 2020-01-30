@@ -13,7 +13,8 @@ using filmweb.Models;
 using filmweb.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using filmweb.Data;
-using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace filmweb
 {
@@ -31,7 +32,6 @@ namespace filmweb
         {
             services.AddControllersWithViews();
             services.AddMvcCore();
-            services.AddSwaggerGen();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
 
@@ -65,10 +65,14 @@ namespace filmweb
             app.UseAuthentication();    // аутентификация
             app.UseAuthorization();     // авторизация
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            // добавляем поддержку каталога node_modules
+            app.UseFileServer(new FileServerOptions()
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API V1");
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(env.ContentRootPath, "node_modules")
+                ),
+                RequestPath = "/node_modules",
+                EnableDirectoryBrowsing = false
             });
 
             app.UseEndpoints(endpoints =>
