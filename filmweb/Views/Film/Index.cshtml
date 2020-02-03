@@ -34,15 +34,49 @@
     </div>
 </div>
 <script>
-    var app = angular.module('tableapp', ['smart-table']);
+    var app = angular.module('tableapp', []);
 
     app.controller('filmsCtrl', ['$scope', '$http', '$filter', function (scope, http, filter) {
 
-        http.get('/api/ApiFilm').then(function (response) {
-            scope.films = response.data;
-        }, function (errResponse) {
-            alert(errResponse);
-        });
+        // column to sort
+        $scope.column = 'emp_name';
+ 
+        // sort ordering (Ascending or Descending). Set true for descending
+        $scope.reverse = false;
+
+        // called on header click
+        $scope.sortColumn = function(col){
+        $scope.column = col;
+        if($scope.reverse){
+            $scope.reverse = false;
+        }else{
+            $scope.reverse = true; 
+        }
+        $scope.fetchEmployees();
+        };
+
+        // Fetch data
+        $scope.fetchEmployees = function(){
+ 
+            var searchText = $scope.searchText;
+            if(searchText == undefined){
+                searchText = '';
+            }
+
+            $http({
+                method: 'get',
+                url: '/api/ApiFilm',
+                data: {searchText:searchText,sortColumn:$scope.column,sortOrder:$scope.reverse}
+            }).then(function successCallback(response) {
+                $scope.employees = response.data;
+            });
+            }
+
+        //http.get('/api/ApiFilm').then(function (response) {
+        //    scope.films = response.data;
+        //}, function (errResponse) {
+        //    alert(errResponse);
+        //});
     }]);
 </script>
 

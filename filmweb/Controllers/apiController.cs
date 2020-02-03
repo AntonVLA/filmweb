@@ -28,19 +28,19 @@ namespace filmweb.Controllers
         //    return Json(model.FilmsList);
         //}
 
-        [HttpGet]
-        public JsonResult GetAllFilms(string sortBy="id", bool asc=true)
+        [HttpPost]
+        public JsonResult GetAllFilms(FilterViewModel model)
         {
-            switch(sortBy)
+            switch(model.sortColumn)
             {
                 case "id":
-                    if(asc)
+                    if(model.sortOrder)
                         return Json(new HomeViewModel(db.Films).FilmsList.OrderBy(l => l.Id));
                     else
                         return Json(new HomeViewModel(db.Films).FilmsList.OrderByDescending(l => l.Id));
 
                 case "name":
-                    if(asc)
+                    if(model.sortOrder)
                         return Json(new HomeViewModel(db.Films).FilmsList.OrderBy(l => l.Name));
                     else
                         return Json(new HomeViewModel(db.Films).FilmsList.OrderByDescending(l => l.Name));
