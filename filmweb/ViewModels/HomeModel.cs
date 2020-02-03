@@ -8,19 +8,21 @@ using System.Threading.Tasks;
 
 namespace filmweb.ViewModels
 {
-    public class HomeModel
+    #region homemodel
+    public class HomeViewModel
     {
         public List<FilmViewModel> FilmsList { get; set; }
-        public HomeModel(DbSet<Film> films)
+        public HomeViewModel(DbSet<Film> films)
         {
-            var filmsList = films.Include(f => f.Actors)
+            var filmls = films.Include(f => f.Actors)
                         .ThenInclude(fa => fa.Actor)
                     .Include(f => f.Genres)
                         .ThenInclude(fg => fg.Genre)
                     .Include(f => f.Producers)
                         .ThenInclude(fp => fp.Producer)
                 .ToList();
-            foreach (Film film in films)
+            FilmsList = new List<FilmViewModel>();
+            foreach (Film film in filmls)
             {
                 FilmsList.Add(new FilmViewModel(film));
             }
@@ -33,7 +35,6 @@ namespace filmweb.ViewModels
         public List<string> Genres { get; set; }
         public List<string> Actors { get; set; }
         public List<string> Produsers { get; set; }
-        public List<Comment> Comments { get; set; }
 
         public FilmViewModel(Film film)
         {
@@ -42,6 +43,15 @@ namespace filmweb.ViewModels
             Genres = film.getFilmGenrs().Select(g=>g.Name).ToList();
             Actors = film.getFilmActors().Select(a => a.Name).ToList();
             Produsers = film.getFilmProducers().Select(p => p.Name).ToList();
+        }
+    }
+    #endregion
+
+    public class Filmpageviewmodel : FilmViewModel
+    {
+        public List<Comment> Comments { get; set; }
+        public Filmpageviewmodel(Film film):base(film)
+        {
             Comments = film.Comments.ToList();
         }
     }

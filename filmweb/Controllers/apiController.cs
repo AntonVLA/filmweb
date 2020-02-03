@@ -20,13 +20,14 @@ namespace filmweb.Controllers
             db = context;
         }
 
-        [HttpGet]
-        public JsonResult GetAllFilms()
-        {
-            var films = db.Films;
-            var model = new HomeModel(films);
-            return  Json(model.FilmsList);
-        }
+        //[HttpGet]
+        //public JsonResult GetAllFilms()
+        //{
+        //    var films = db.Films;
+        //    var model = new HomeViewModel(films);
+        //    return Json(model.FilmsList);
+        //}
+
         [HttpGet]
         public JsonResult GetAllFilms(string sortBy="id", bool asc=true)
         {
@@ -34,17 +35,21 @@ namespace filmweb.Controllers
             {
                 case "id":
                     if(asc)
-                        return Json(new HomeModel(db.Films).FilmsList.OrderBy(l => l.Id));
+                        return Json(new HomeViewModel(db.Films).FilmsList.OrderBy(l => l.Id));
                     else
-                        return Json(new HomeModel(db.Films).FilmsList.OrderByDescending(l => l.Id));
+                        return Json(new HomeViewModel(db.Films).FilmsList.OrderByDescending(l => l.Id));
 
                 case "name":
                     if(asc)
-                        return Json(new HomeModel(db.Films).FilmsList.OrderBy(l => l.Name));
+                        return Json(new HomeViewModel(db.Films).FilmsList.OrderBy(l => l.Name));
                     else
-                        return Json(new HomeModel(db.Films).FilmsList.OrderByDescending(l => l.Name));
+                        return Json(new HomeViewModel(db.Films).FilmsList.OrderByDescending(l => l.Name));
+
+                default:
+                    return Json(new HomeViewModel(db.Films).FilmsList);
+
             }
-            return Json(new HomeModel(db.Films).FilmsList);
+            
         }
     }
 }
