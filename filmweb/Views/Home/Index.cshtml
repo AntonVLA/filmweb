@@ -4,15 +4,6 @@
 }
 <script rel="stylesheet" src="~/js/angular-1.1.5.js"></script>
 <script rel="stylesheet" src="/node_modules/angular-smart-table/dist/smart-table.js"></script>
-<style type="text/css">
-    .st-sort-ascent:before {
-        content: '\25B2';
-    }
-
-    .st-sort-descent:before {
-        content: '\25BC';
-    }
-</style>
 
 
 <div class="text-center">
@@ -59,11 +50,11 @@
             }else{
                 $scope.reverse = true; 
             }
-            $scope.fetchEmployees();
+            $scope.fetchFilms();
         };
 
         // Fetch data
-        $scope.fetchEmployees = function(){
+        $scope.fetchFilms = function(){
 
             $http({
                 method: 'post',
@@ -74,6 +65,6 @@
             });
         }
 
-        $scope.fetchEmployees();
+        $scope.fetchFilms();
     }]);
     </script>

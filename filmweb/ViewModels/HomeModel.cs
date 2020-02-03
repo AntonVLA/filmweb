@@ -44,6 +44,7 @@ namespace filmweb.ViewModels
             Actors = film.getFilmActors().Select(a => a.Name).ToList();
             Produsers = film.getFilmProducers().Select(p => p.Name).ToList();
         }
+        public FilmViewModel() { }
     }
     #endregion
 
