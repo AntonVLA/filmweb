@@ -20,13 +20,13 @@ namespace filmweb.Controllers
             db = context;
         }
 
-        //[HttpGet]
-        //public JsonResult GetAllFilms()
-        //{
-        //    var films = db.Films;
-        //    var model = new HomeViewModel(films);
-        //    return Json(model.FilmsList);
-        //}
+        [HttpGet]
+        public JsonResult Film()
+        {
+            var films = db.Films;
+            var model = new HomeViewModel(films);
+            return Json(model.FilmsList);
+        }
 
         [HttpPost]
         public JsonResult GetAllFilms(FilterViewModel model)

@@ -4,79 +4,55 @@
 }
 
 <h1>@Model.Id. @Model.Name</h1>
-<p>Жанры: @foreach (string genre in Model.Genres) { @genre +=' '; }</p>
-<p>Режиссёры: @foreach (string producer in Model.Produsers) { @producer +=' ';}</p>
-<p>Актёры:  @foreach (string actor in Model.Actors) { @actor += ' ';}</p>
-@if (User.Identity.IsAuthenticated)
-{
-<div>
-    <div class="input-group">
-        <div class="input-group-prepend">
-            <span class="input-group-text">With textarea</span>
+<p>Жанры: @foreach (string genre in Model.Genres) { @genre; }</p>
+<p>Режиссёры: @foreach (string producer in Model.Produsers) { @producer;}</p>
+<p>Актёры:  @foreach (string actor in Model.Actors) { @actor;}</p>
+<div ng-app="comments" ng-controller="commentsctrl">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">With textarea</span>
+                </div>
+                <textarea id="textarea" class="form-control" aria-label="With textarea"></textarea>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="addcomment()">Primary</button>
         </div>
-        <textarea class="form-control" aria-label="With textarea"></textarea>
-    </div>
-    <button type="button" class="btn btn-primary">Primary</button>
-</div>
-}
-<h3>Комментарии:</h3>
-<div>
-    <div class="card">
-        <div class="card-header">
-            Quote
-        </div>
-        <div class="card-body">
-            <blockquote class="blockquote mb-0">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-            </blockquote>
+    }
+    <div>
+        <div class="card">
+            <div class="card-header">
+                Комментарии:
+            </div>
+            <div ng-repeat="comment in comments" class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>{{comment.text}}</p>
+                    <footer class="blockquote-footer">{{comment}} </footer>
+                </blockquote>
+            </div>
         </div>
     </div>
 </div>
 <script>
-    var app = angular.module('tableapp', []);
+    var app = angular.module('comments', []);
 
-    app.controller('filmsCtrl', ['$scope', '$http', '$filter', function (scope, http, filter) {
+    app.controller('commntctrl', ['$scope', '$http', '$filter', function (scope, http, filter) {
 
         // column to sort
         $scope.column = 'emp_name';
- 
-        // sort ordering (Ascending or Descending). Set true for descending
-        $scope.reverse = false;
 
-        // called on header click
-        $scope.sortColumn = function(col){
-        $scope.column = col;
-        if($scope.reverse){
-            $scope.reverse = false;
-        }else{
-            $scope.reverse = true; 
-        }
-        $scope.fetchEmployees();
-        };
+        $scope.addcomment = function(){
 
-        // Fetch data
-        $scope.fetchEmployees = function(){
- 
-            var searchText = $scope.searchText;
-            if(searchText == undefined){
-                searchText = '';
-            }
+        $scope.text = document.getElementById("textarea").textContent;
 
-            $http({
-                method: 'get',
-                url: '/api/ApiFilm',
-                data: {searchText:searchText,sortColumn:$scope.column,sortOrder:$scope.reverse}
-            }).then(function successCallback(response) {
-                $scope.employees = response.data;
-            });
-            }
-
-        //http.get('/api/ApiFilm').then(function (response) {
-        //    scope.films = response.data;
-        //}, function (errResponse) {
-        //    alert(errResponse);
-        //});
+        $http({
+            method: 'post',
+            url: '/api/ApiFilm',
+            data: 'text:$scope.text,userid:@User.Identity.Name,filmid:@Model.Id'
+        }).then(function successCallback(response) {
+            $scope.employees = response.data;
+        });
     }]);
 </script>
 

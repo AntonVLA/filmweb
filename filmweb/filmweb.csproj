@@ -24,6 +24,7 @@
     <Folder Include="Views\Account\" />
     <Folder Include="Data\Models\" />
     <Folder Include="Migrations\" />
+    <Folder Include="ViewModels\post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Views\Account\Account.cshtml" />
