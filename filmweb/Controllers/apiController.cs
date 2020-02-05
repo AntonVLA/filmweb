@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using filmweb.Data;
+using filmweb.Models;
 using filmweb.ViewModels;
+using filmweb.ViewModels.post;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace filmweb.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[action]")]
     [ApiController]
     public class ApiFilmController : Controller
     {
@@ -20,12 +22,19 @@ namespace filmweb.Controllers
             db = context;
         }
 
-        [HttpGet]
-        public JsonResult Film()
+        [HttpGet("{filmid}")]
+        public JsonResult GetComments(int filmid)
         {
-            var films = db.Films;
-            var model = new HomeViewModel(films);
-            return Json(model.FilmsList);
+            return Json(db.Comments.Where(c => c.FilmId == filmid).Select(c => new { c.Text, c.User.Email }));
+        }
+
+        [HttpPost]
+        public void AddComment(AddCommentViewModel model)
+        {
+            db.Comments.Update(new Comment { Text = model.commenttext,
+                FilmId = model.filmid, UserId = db.Users.Where(u => u.Email == User.Identity.Name).Select(u => u.Id).FirstOrDefault()
+            });
+            db.SaveChanges();
         }
 
         [HttpPost]

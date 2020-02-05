@@ -58,7 +58,7 @@
 
             $http({
                 method: 'post',
-                url: '/api/Film',
+                url: '/api/GetAllFilms',
                 data: {sortColumn:$scope.column,sortOrder:$scope.reverse}
             }).then(function successCallback(response) {
                 $scope.films = response.data;

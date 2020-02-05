@@ -3,8 +3,7 @@ namespace filmweb.ViewModels.post
 {
     public class AddCommentViewModel
     {
-        public AddCommentViewModel()
-        {
-        }
+        public string commenttext { get; set; }
+        public int filmid { get; set; }
     }
 }
