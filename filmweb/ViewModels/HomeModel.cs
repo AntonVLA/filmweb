@@ -35,7 +35,7 @@ namespace filmweb.ViewModels
         public List<string> Genres { get; set; }
         public List<string> Actors { get; set; }
         public List<string> Produsers { get; set; }
-
+        public List<string> favusers { get; set; }
         public FilmViewModel(Film film)
         {
             Id = film.Id;
@@ -43,6 +43,7 @@ namespace filmweb.ViewModels
             Genres = film.getFilmGenrs().Select(g=>g.Name).ToList();
             Actors = film.getFilmActors().Select(a => a.Name).ToList();
             Produsers = film.getFilmProducers().Select(p => p.Name).ToList();
+            favusers = film.UserFav.Where(u=>u.FilmId==Id).Select(u=>u.User.Email).ToList();
         }
         public FilmViewModel() { }
     }

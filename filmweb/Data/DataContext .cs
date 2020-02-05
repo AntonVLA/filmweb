@@ -20,6 +20,7 @@ namespace filmweb.Data
         public DbSet<FilmActor> FilmActors { get; set; }
         public DbSet<FilmGenre> FilmGenres { get; set; }
         public DbSet<FilmProducer> FilmProducers { get; set; }
+        public DbSet<FavoriteFilms> FavoriteFilms { get; set; }
 
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
@@ -153,8 +154,8 @@ namespace filmweb.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=filmwebdb;User Id=sa;Password=reallyStrongPwd123; Integrated Security=False");
-            //optionsBuilder.UseSqlServer(@"Data Source=.\;Database=filmvebdb;Integrated Security=True;");
+            //optionsBuilder.UseSqlServer(@"Server=localhost,1433;Database=filmwebdb;User Id=sa;Password=reallyStrongPwd123; Integrated Security=False");
+            optionsBuilder.UseSqlServer(@"Data Source=.\;Database=filmvebdb;Integrated Security=True;");
         }
     }
 }

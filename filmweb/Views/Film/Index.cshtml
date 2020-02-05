@@ -2,12 +2,41 @@
 @{
     ViewData["Title"] = "FilmView";
 }
+<style>
+    .full-class {
+        glyphicon; glyphicon-star;
+    }
+    .non-class {
+        glyphicon;
+        glyphicon-star-empty;
+    }
+</style>
 <script rel="stylesheet" src="~/js/angular-1.1.5.js"></script>
+@if (User.Identity.IsAuthenticated)
+{
+<button type="button" class="btn btn-default btn-sm pull-right" ng-click="addtofav()">
+    @if (Model.favusers.Contains(User.Identity.Name))
+    {
+        <span ng-class="glyphicon glyphicon-star"></span>
+    }
+    else {
+        <span ng-class="glyphicon glyphicon-star-empty"></span>
+    }
+</button>
+}
 
-<h1>@Model.Id. @Model.Name</h1>
-<p>Жанры: @foreach (string genre in Model.Genres) { @genre; }</p>
-<p>Режиссёры: @foreach (string producer in Model.Produsers) { @producer; }</p>
-<p>Актёры:  @foreach (string actor in Model.Actors) { @actor; }</p>
+<div>
+    <h1>@Model.Id. @Model.Name</h1>
+    <p>Жанры: @foreach (string genre in Model.Genres)
+    {@genre;
+}</p>
+    <p>Режиссёры: @foreach (string producer in Model.Produsers)
+    {@producer;
+}</p>
+    <p>Актёры:  @foreach (string actor in Model.Actors)
+    {@actor;
+}</p>
+</div>
 <div ng-app="comments" ng-controller="commntctrl">
     @if (User.Identity.IsAuthenticated)
     {

@@ -23,6 +23,13 @@ namespace filmweb.Controllers
         }
 
         [HttpGet("{filmid}")]
+        public void Addtofavorite(int filmid)
+        {
+            db.FavoriteFilms.Update(new FavoriteFilms { FilmId = filmid, UserId = db.Users.Where(u => u.Email == User.Identity.Name).Select(u => u.Id).FirstOrDefault() });
+            db.SaveChanges();
+        }
+
+        [HttpGet("{filmid}")]
         public JsonResult GetComments(int filmid)
         {
             return Json(db.Comments.Where(c => c.FilmId == filmid).Select(c => new { c.Text, c.User.Email }));

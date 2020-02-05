@@ -27,6 +27,11 @@ namespace filmweb.Models
             return this.Producers.Select(p => p.Producer);
         }
 
+        public bool isfavorite(int userid)
+        {
+            return UserFav.Where(u=>u.UserId==userid && u.FilmId==Id) is null? false:true;
+        }
+
         public Film()
         {
             Genres = new List<FilmGenre>();
