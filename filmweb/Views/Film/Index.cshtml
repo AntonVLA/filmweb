@@ -2,64 +2,69 @@
 @{
     ViewData["Title"] = "FilmView";
 }
-<style>
-    .full-class {
-        glyphicon; glyphicon-star;
-    }
-    .non-class {
-        glyphicon;
-        glyphicon-star-empty;
-    }
-</style>
-<script rel="stylesheet" src="~/js/angular-1.1.5.js"></script>
-@if (User.Identity.IsAuthenticated)
-{
-<button type="button" class="btn btn-default btn-sm pull-right" ng-click="addtofav()">
-    @if (Model.favusers.Contains(User.Identity.Name))
-    {
-        <span ng-class="glyphicon glyphicon-star"></span>
-    }
-    else {
-        <span ng-class="glyphicon glyphicon-star-empty"></span>
-    }
-</button>
-}
 
-<div>
-    <h1>@Model.Id. @Model.Name</h1>
-    <p>Жанры: @foreach (string genre in Model.Genres)
-    {@genre;
-}</p>
-    <p>Режиссёры: @foreach (string producer in Model.Produsers)
-    {@producer;
-}</p>
-    <p>Актёры:  @foreach (string actor in Model.Actors)
-    {@actor;
-}</p>
-</div>
-<div ng-app="comments" ng-controller="commntctrl">
+<script rel="stylesheet" src="~/js/angular-1.1.5.js"></script>
+<div ng-app="comments">
     @if (User.Identity.IsAuthenticated)
     {
-        <div>
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">With textarea</span>
-                </div>
-                <textarea class="form-control" aria-label="With textarea" ng-model="text"></textarea>
-            </div>
-            <button type="button" class="btn btn-primary" ng-click="addcomment()">Primary</button>
-        </div>
+        @if (Model.favusers.Contains(User.Identity.Name))
+        {
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-app="comments" ng-controller="favctrl" ng-click="addtofav()">
+
+                <span  class="glyphicon glyphicon-star"></span>
+            </button>
+        }
+        else
+        {
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-app="comments" ng-controller="favctrl" ng-click="addtofav()">
+
+                <span  class="glyphicon glyphicon-star-empty"></span>
+            </button>
+        }
     }
+
     <div>
-        <div class="card">
-            <div class="card-header">
-                Комментарии:
+        <h1>@Model.Id. @Model.Name</h1>
+        <p>
+            Жанры: @foreach (string genre in Model.Genres)
+            {@genre;
+        }
+        </p>
+        <p>
+            Режиссёры: @foreach (string producer in Model.Produsers)
+            {@producer;
+        }
+        </p>
+        <p>
+            Актёры:  @foreach (string actor in Model.Actors)
+            {@actor;
+        }
+        </p>
+    </div>
+    <div ng-controller="commntctrl">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">With textarea</span>
+                    </div>
+                    <textarea class="form-control" aria-label="With textarea" ng-model="text"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="addcomment()">Primary</button>
             </div>
-            <div ng-repeat="comment in comments" class="card-body">
-                <blockquote class="blockquote mb-0">
-                    <p>{{comment.text}}</p>
-                    <footer class="blockquote-footer">{{comment}} </footer>
-                </blockquote>
+        }
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    Комментарии:
+                </div>
+                <div ng-repeat="comment in comments" class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{comment.text}}</p>
+                        <footer class="blockquote-footer">{{comment.email}} </footer>
+                    </blockquote>
+                </div>
             </div>
         </div>
     </div>
@@ -78,11 +83,30 @@
             http({
                 method: 'post',
                 url: '/api/AddComment',
-                data: {commenttext:scope.text, filmid:@Model.Id}
+                data: { commenttext: scope.text, filmid:@Model.Id}
             }).then(function successCallback(response) {
-
             });
+            scope.comments.push({ text: scope.text, email: @User.Identity.Name });
         }
+    }]);
+
+    app.controller('favctrl', ['$scope', '$http', function (scope, http) {
+
+        scope.addtofav = function () {
+            if ($('.glyphicon').hasClass('glyphicon-star')) {
+                $('.glyphicon').removeClass('glyphicon-star');
+                $('.glyphicon').addClass('glyphicon-star-empty');
+            }
+            else {
+                $('.glyphicon').removeClass('glyphicon-star-empty');
+                $('.glyphicon').addClass('glyphicon-star');
+            }
+            http({
+                method: 'post',
+                url: '/api/AddComment',
+                data: { commenttext: scope.text, filmid:@Model.Id}
+            }).then(function successCallback(response) { });
+        };
     }]);
 </script>
 

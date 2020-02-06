@@ -25,8 +25,16 @@ namespace filmweb.Controllers
         [HttpGet("{filmid}")]
         public void Addtofavorite(int filmid)
         {
-            db.FavoriteFilms.Update(new FavoriteFilms { FilmId = filmid, UserId = db.Users.Where(u => u.Email == User.Identity.Name).Select(u => u.Id).FirstOrDefault() });
-            db.SaveChanges();
+            if (db.FavoriteFilms.Where(u => u.FilmId == filmid).Select(u => u.User.Email).ToList() is null)
+            {
+                db.FavoriteFilms.Update(new FavoriteFilms { FilmId = filmid, UserId = db.Users.Where(u => u.Email == User.Identity.Name).Select(u => u.Id).FirstOrDefault() });
+                db.SaveChanges();
+            }
+            else {
+                db.FavoriteFilms.Remove(db.FavoriteFilms.Where(f => f.FilmId == filmid).First());
+                db.SaveChanges();
+            }
+
         }
 
         [HttpGet("{filmid}")]
