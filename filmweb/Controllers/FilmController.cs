@@ -29,7 +29,10 @@ namespace filmweb.Controllers
                     .Include(f => f.Producers)
                         .ThenInclude(fp => fp.Producer)
                     .Include(f => f.Comments)
+                    .Include(f=>f.UserFav)
+                        .ThenInclude(f=>f.User)
                     .Where(f => f.Id == id).First();
+                        
             model = new FilmViewModel(film);
             return View(model);
         }

@@ -102,9 +102,8 @@
                 $('.glyphicon').addClass('glyphicon-star');
             }
             http({
-                method: 'post',
-                url: '/api/AddComment',
-                data: { commenttext: scope.text, filmid:@Model.Id}
+                method: 'get',
+                url: '/api/Addtofavorite/@Model.Id',
             }).then(function successCallback(response) { });
         };
     }]);
