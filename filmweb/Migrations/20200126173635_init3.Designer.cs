@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using filmweb.Data;
 
 namespace filmweb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200126173635_init3")]
+    partial class init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +136,7 @@ namespace filmweb.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmActors");
+                    b.ToTable("FilmActor");
 
                     b.HasData(
                         new
@@ -166,7 +168,7 @@ namespace filmweb.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmGenres");
+                    b.ToTable("FilmGenre");
 
                     b.HasData(
                         new
@@ -198,7 +200,7 @@ namespace filmweb.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmProducers");
+                    b.ToTable("FilmProducer");
 
                     b.HasData(
                         new

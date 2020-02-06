@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using filmweb.Models;
+using filmweb.Data;
 
 namespace filmweb.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200119000156_init")]
-    partial class init
+    [Migration("20200126183843_init4")]
+    partial class init4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,23 @@ namespace filmweb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Name = "Леонардо Дикаприо"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Джони Деп"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Том Круз"
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.Comment", b =>
@@ -57,7 +74,7 @@ namespace filmweb.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("filmweb.Models.FavoriteFilms", b =>
@@ -88,6 +105,23 @@ namespace filmweb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Films");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Name = "Тёмный рыцарь"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Однажды в Голивуде"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Космическая одисея"
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.FilmActor", b =>
@@ -102,7 +136,24 @@ namespace filmweb.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmActor");
+                    b.ToTable("FilmActors");
+
+                    b.HasData(
+                        new
+                        {
+                            ActorId = 3,
+                            FilmId = 3
+                        },
+                        new
+                        {
+                            ActorId = 2,
+                            FilmId = 1
+                        },
+                        new
+                        {
+                            ActorId = 1,
+                            FilmId = 2
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.FilmGenre", b =>
@@ -117,7 +168,24 @@ namespace filmweb.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmGenre");
+                    b.ToTable("FilmGenres");
+
+                    b.HasData(
+                        new
+                        {
+                            GenreId = 1,
+                            FilmId = 3
+                        },
+                        new
+                        {
+                            GenreId = 2,
+                            FilmId = 1
+                        },
+                        new
+                        {
+                            GenreId = 3,
+                            FilmId = 2
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.FilmProducer", b =>
@@ -132,7 +200,24 @@ namespace filmweb.Migrations
 
                     b.HasIndex("FilmId");
 
-                    b.ToTable("FilmProducer");
+                    b.ToTable("FilmProducers");
+
+                    b.HasData(
+                        new
+                        {
+                            ProducerId = 3,
+                            FilmId = 3
+                        },
+                        new
+                        {
+                            ProducerId = 1,
+                            FilmId = 1
+                        },
+                        new
+                        {
+                            ProducerId = 2,
+                            FilmId = 2
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.Genre", b =>
@@ -148,6 +233,23 @@ namespace filmweb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Name = "Боевик"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Фентези"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Детектив"
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.Producer", b =>
@@ -163,6 +265,23 @@ namespace filmweb.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Producers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 3,
+                            Name = "Кристофер Нолан"
+                        },
+                        new
+                        {
+                            Id = 1,
+                            Name = "Квентин Тарантино"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Стэнли Кубрик"
+                        });
                 });
 
             modelBuilder.Entity("filmweb.Models.User", b =>
@@ -172,12 +291,18 @@ namespace filmweb.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Login")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Login")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("filmweb.Models.Comment", b =>

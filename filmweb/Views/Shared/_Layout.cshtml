@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - filmweb</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
     <header>
@@ -19,13 +20,40 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Films</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+
                     </ul>
                 </div>
+                
+                    <div class="navbar-collapse my-2 my-lg-0">
+                        <ul class="navbar-nav ml-auto">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item float-right">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                </li>
+                                <li class="nav-item float-right">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                </li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item float-right">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">@User.Identity.Name</a>
+                                </li>
+                                <li class="nav-item float-right">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">
+
+                                        <button type="button" class="btn btn-default btn-sm">
+                                            <span class="glyphicon glyphicon-log-out"></span> Log out
+                                        </button>
+                                    </a>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
             </div>
         </nav>
     </header>

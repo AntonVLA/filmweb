@@ -9,12 +9,37 @@ namespace filmweb.Models
     public class Film : FilmProperty
     {
         public List<FilmGenre> Genres { get; set; }
-
         public List<FilmActor> Actors { get; set; }
-
         public List<FilmProducer> Producers { get; set; }
-
+        public List<Comment> Comments { get; set; }
         public List<FavoriteFilms> UserFav { get; set; }
+
+        public IEnumerable<Genre> getFilmGenrs()
+        {
+            return this.Genres.Select(g=>g.Genre);
+        }
+        public IEnumerable<Actor> getFilmActors()
+        {
+            return this.Actors.Select(a => a.Actor);
+        }
+        public IEnumerable<Producer> getFilmProducers()
+        {
+            return this.Producers.Select(p => p.Producer);
+        }
+
+        public bool isfavorite(int userid)
+        {
+            return UserFav.Where(u=>u.UserId==userid && u.FilmId==Id) is null? false:true;
+        }
+
+        public Film()
+        {
+            Genres = new List<FilmGenre>();
+            Actors = new List<FilmActor>();
+            Producers = new List<FilmProducer>();
+            UserFav = new List<FavoriteFilms>();
+            Comments = new List<Comment>();
+        }
     }
 
     public abstract class FilmProperty
@@ -27,16 +52,28 @@ namespace filmweb.Models
     public class Producer : FilmProperty
     {
         public List<FilmProducer> Films { get; set; }
+        public Producer()
+        {
+            Films = new List<FilmProducer>();
+        }
     }
 
     public class Genre : FilmProperty
     {
-        public List<FilmGenre> Films { get; set; }
+        public IEnumerable<FilmGenre> Films { get; set; }
+        public Genre()
+        {
+            Films = new List<FilmGenre>();
+        }
     }
 
     public class Actor : FilmProperty
     {
         public List<FilmActor> Films { get; set; }
+        public Actor() 
+        {
+            Films = new List<FilmActor>();
+        } 
     }
 
     #region ManyToMany

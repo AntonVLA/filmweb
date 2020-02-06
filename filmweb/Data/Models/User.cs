@@ -9,7 +9,11 @@ namespace filmweb.Models
     {
         public int Id { get; set; }
 
-        public int Login { get; set; }
+        public string Login { get; set; }
+
+        public string Password { get; set; }
+
+        public string Email { get; set; }
 
         public List<Comment> Comments { get; set; }
 

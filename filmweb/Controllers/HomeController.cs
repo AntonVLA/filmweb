@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using filmweb.Models;
+using filmweb.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using filmweb.Data;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace filmweb.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly DataContext db;
+        public HomeController(DataContext context)
         {
-            _logger = logger;
+            db = context;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
 
-        public IActionResult Privacy()
-        {
             return View();
         }
 

@@ -2,7 +2,7 @@
 
 namespace filmweb.Migrations
 {
-    public partial class init : Migration
+    public partial class init2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,16 +59,18 @@ namespace filmweb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<int>(nullable: false)
+                    Login = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -144,7 +146,7 @@ namespace filmweb.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -155,17 +157,17 @@ namespace filmweb.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Films_FilmId",
+                        name: "FK_Comments_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_User_UserId",
+                        name: "FK_Comments_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -187,21 +189,91 @@ namespace filmweb.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FavoriteFilms_User_UserId",
+                        name: "FK_FavoriteFilms_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Actors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 3, "Леонардо Дикаприо" },
+                    { 1, "Джони Деп" },
+                    { 2, "Том Круз" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Films",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 3, "Тёмный рыцарь" },
+                    { 1, "Однажды в Голивуде" },
+                    { 2, "Космическая одисея" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 3, "Боевик" },
+                    { 1, "Фентези" },
+                    { 2, "Детектив" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Producers",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 3, "Кристофер Нолан" },
+                    { 1, "Квентин Тарантино" },
+                    { 2, "Стэнли Кубрик" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FilmActor",
+                columns: new[] { "ActorId", "FilmId" },
+                values: new object[,]
+                {
+                    { 3, 3 },
+                    { 2, 1 },
+                    { 1, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FilmGenre",
+                columns: new[] { "GenreId", "FilmId" },
+                values: new object[,]
+                {
+                    { 3, 2 },
+                    { 1, 3 },
+                    { 2, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FilmProducer",
+                columns: new[] { "ProducerId", "FilmId" },
+                values: new object[,]
+                {
+                    { 3, 3 },
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_FilmId",
-                table: "Comment",
+                name: "IX_Comments_FilmId",
+                table: "Comments",
                 column: "FilmId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_UserId",
-                table: "Comment",
+                name: "IX_Comments_UserId",
+                table: "Comments",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -228,7 +300,7 @@ namespace filmweb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "FavoriteFilms");
@@ -243,7 +315,7 @@ namespace filmweb.Migrations
                 name: "FilmProducer");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Actors");
